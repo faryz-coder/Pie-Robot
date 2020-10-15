@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<h1>Raspberry Pi ROBOT</h1>
+
+<button onmousedown="runScript()" onmouseup="end()" name="UP" value="up" id="buttonUp">UP HOLD</button>
+<button onmousedown="runScript()" onmouseup="end()" name="UP" value="back" id="buttonUp">BACK HOLD</button>
+<button onmousedown="runScript()" onmouseup="end()" name="UP" value="left" id="buttonUp">LEFT HOLD</button>
+<button onmousedown="runScript()" onmouseup="end()" name="UP" value="right" id="buttonUp">RIGHT HOLD</button>
+<p id="counter"></p>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var wrapper = document.getElementById('counter');
+  var counter;
+  var count = 0;
+
+function runScript() {
+  counter = setInterval(function(){
+    $.ajax({
+        url: 'move', //The URL you defined in urls.py
+        type: "POST",
+        data: {
+          UP: $('#buttonUp').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(data) {
+          //If you wish you can do additional data manipulation here.
+          wrapper.innerHTML = count + "bit" + data;
+          count ++;
+        }
+
+    });
+  }, 500);
+
+}
+
+function end() {
+    clearInterval(counter)
+  }
+</script>
+
+
+
+{% endblock %}
