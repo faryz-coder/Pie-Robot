@@ -1,7 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from pie import PiMotor
+import RPi.GPIO as GPIO
 import time
+
+GPIO.setwarnings(False)
+
+TRIG = 29
+ECHO = 31
+
+GPIO.setup(TRIG,GPIO.OUT)
+GPIO.setup(ECHO,GPIO.IN)
 
 #Name of Individual MOTORS
 m1 = PiMotor.Motor("MOTOR1",1)
@@ -27,6 +36,7 @@ def direction(request):
 
     movement = request.POST['UP']
     stopDistance = 5
+    sleepDuration = 2
 
     def ultra():
         t = True
@@ -64,13 +74,13 @@ def direction(request):
         af.off()
         ar.off()
         motorAll.stop()
-        time.sleep(1)
+        time.sleep(sleepDuration)
 
     if movement == 'up' && ultra() > stopDistance:
         print("Robot Moving Forward ")
         af.on()
         motorAll.forward(100)
-        time.sleep(1)
+        time.sleep(sleepDuration)
         stop()
 
     elif movement == 'back':
@@ -78,7 +88,7 @@ def direction(request):
         af.off()
         ab.on()
         motorAll.reverse(100)
-        time.sleep(1)
+        time.sleep(sleepDuration)
         stop()
 
     elif movement == 'left':
@@ -89,7 +99,7 @@ def direction(request):
         m2.forward(100)
         m3.reverse(100)
         m4.forward(100)
-        time.sleep(1)
+        time.sleep(sleepDuration)
         stop()
 
     elif movement == 'right':
@@ -100,7 +110,7 @@ def direction(request):
         m2.reverse(100)
         m3.forward(100)
         m4.reverse(100)
-        time.sleep(1)
+        time.sleep(sleepDuration)
         stop()
 
     return HttpResponse('Return data to ajax call : movement {}'.format(movement))
