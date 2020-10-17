@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from pie import PiMotor
+import time
 
 #Name of Individual MOTORS
 m1 = PiMotor.Motor("MOTOR1",1)
