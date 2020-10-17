@@ -76,7 +76,7 @@ def direction(request):
         motorAll.stop()
         time.sleep(sleepDuration)
 
-    if movement == 'up' && ultra() > stopDistance:
+    if movement == 'up' and ultra() > stopDistance:
         print("Robot Moving Forward ")
         af.on()
         motorAll.forward(100)
