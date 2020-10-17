@@ -29,34 +29,34 @@ def direction(request):
     stopDistance = 5
 
     def ultra():
-    t = True
-    distance = 0
-    count=0
-    while t:
-     i=0
-     avgDistance=0
-     for i in range(5):
-        GPIO.output(TRIG, False)
-        time.sleep(0.1)
+        t = True
+        distance = 0
+        count=0
+        while t:
+         i=0
+         avgDistance=0
+         for i in range(5):
+            GPIO.output(TRIG, False)
+            time.sleep(0.1)
 
-        GPIO.output(TRIG, True)
-        time.sleep(0.00001)
-        GPIO.output(TRIG, False)
-        while GPIO.input(ECHO)==0:
-            pulse_start = time.time()
+            GPIO.output(TRIG, True)
+            time.sleep(0.00001)
+            GPIO.output(TRIG, False)
+            while GPIO.input(ECHO)==0:
+                pulse_start = time.time()
 
-        while GPIO.input(ECHO)==1:
-            pulse_end = time.time()
-            pulse_duration = pulse_end - pulse_start
+            while GPIO.input(ECHO)==1:
+                pulse_end = time.time()
+                pulse_duration = pulse_end - pulse_start
 
-            distance = (pulse_duration * 34300)/2
-            distance = round(distance,2)
-            avgDistance=avgDistance+distance
+                distance = (pulse_duration * 34300)/2
+                distance = round(distance,2)
+                avgDistance=avgDistance+distance
 
-            avgDistance=avgDistance/5
-            distance = int(avgDistance)
-            t = False
-    return distance
+                avgDistance=avgDistance/5
+                distance = int(avgDistance)
+                t = False
+        return distance
 
     def stop():
         print("Robot Stop ")
