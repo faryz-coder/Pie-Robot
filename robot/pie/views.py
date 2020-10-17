@@ -72,4 +72,4 @@ def direction(request):
         time.sleep(5)
         stop()
 
-    return HttpResponse('Return data to ajax call')
+    return HttpResponse('Return data to ajax call : movement {}'.format(movement))
