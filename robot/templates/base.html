@@ -4,9 +4,46 @@
     <meta charset="utf-8">
     <title>Pie Robot</title>
   </head>
-  <body bgcolor="white">
-    <img src="http://192.168.0.103:8081" alt= "http://127.0.0.1:8000/media/no-camera.jpg"style="width:100%; max-width: 700px; max-height: 600px; border-radius: 10px">
+  <style>
 
+    button {
+      background-color: #008CBA;
+      color: white;
+      font-size: 24px;
+      padding: 32px 16px;
+      border-radius: 8px;
+      box-shadow: 0 9px #999;
+      outline: none;
+      margin-right: 10px;
+    }
+
+    button:active {
+      background: white;
+      color: black;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+
+    .visual {
+      display:flex;
+      justify-content: center;
+    }
+
+    img {
+      float:center; width:100%; max-width: 700px; max-height: 600px; border-radius: 10px
+    }
+
+    h1 {
+      display:flex;
+      justify-content: center;
+    }
+
+    .visual {
+      position: relative;
+    }
+  </style>
+  <body>
+    <!-- <img src="http://192.168.0.103:8081" alt= "http://127.0.0.1:8000/media/no-camera.jpg"style="width:100%; max-width: 700px; max-height: 600px; border-radius: 10px"> -->
     {% block content%}
 
     {% endblock %}

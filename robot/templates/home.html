@@ -2,17 +2,28 @@
 
 {% block content %}
 
-<h1>Raspberry Pi ROBOT</h1>
+<div class="visual">
+  <img src="http://192.168.0.103:8081" alt= "http://127.0.0.1:8000/media/no-camera.jpg">
+  <h2 id="object"style="position:absolute; bottom:8px; color:red"></h2>
+</div>
 
-<button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="up" id="buttonUp">UP HOLD</button>
-<button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="back" id="buttonUp">BACK HOLD</button>
-<button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="left" id="buttonUp">LEFT HOLD</button>
-<button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="right" id="buttonUp">RIGHT HOLD</button>
-<p id="counter"></p>
+<h1>Raspberry Pi ROBOT</h1>
+<div class="container" style="display:flex;justify-content: center;">
+  <div class="vertical-center">
+    <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="up" id="buttonUp" style="margin-left: 120px">UP HOLD</button>
+    <p>
+      <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="right" id="buttonUp">RIGHT HOLD</button>
+      <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="left" id="buttonUp">LEFT HOLD</button>
+    </p>
+    <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="back" id="buttonUp" style="margin-left: 100px">BACK HOLD</button>
+    <p id="counter"></p>
+  </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-  var wrapper = document.getElementById('counter');
+  var wrapper = document.getElementById('object');
   var counter;
   var count = 0;
 
@@ -27,7 +38,8 @@ function runScript(button) {
         },
         success: function(data) {
           //If you wish you can do additional data manipulation here.
-          wrapper.innerHTML = count + "bit" + data;
+          // wrapper.innerHTML = count + "bit" + data;\
+          wrapper.innerHTML = "Ultrasonic: " + data;
           count ++;
         }
 
