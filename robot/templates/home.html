@@ -50,6 +50,21 @@ function runScript(button) {
 
 function end() {
     clearInterval(counter)
+    $.ajax({
+        url: 'move', //The URL you defined in urls.py
+        type: "POST",
+        data: {
+          UP: "stop",
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(data) {
+          //If you wish you can do additional data manipulation here.
+          // wrapper.innerHTML = count + "bit" + data;\
+          wrapper.innerHTML = "Ultrasonic: " + data;
+          count ++;
+        }
+
+    });
   }
 </script>
 

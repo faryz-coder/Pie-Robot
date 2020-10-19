@@ -36,7 +36,6 @@ def direction(request):
 
     movement = request.POST['UP']
     stopDistance = 5
-    sleepDuration = 1.5
 
     def ultra():
         t = True
@@ -73,23 +72,17 @@ def direction(request):
         al.off()
         af.off()
         ar.off()
-        motorAll.stop()
-        time.sleep(sleepDuration)
 
     if movement == 'up' and ultra() > stopDistance:
         print("Robot Moving Forward ")
         af.on()
         motorAll.forward(100)
-        time.sleep(sleepDuration)
-        stop()
 
     elif movement == 'back':
         print("Robot Moving Backward ")
         af.off()
         ab.on()
         motorAll.reverse(100)
-        time.sleep(sleepDuration)
-        stop()
 
     elif movement == 'left':
         print("Robot Moving Left ")
@@ -99,8 +92,6 @@ def direction(request):
         m2.forward(100)
         m3.reverse(100)
         m4.forward(100)
-        time.sleep(sleepDuration)
-        stop()
 
     elif movement == 'right':
         print("Robot Moving Right ")
@@ -110,7 +101,8 @@ def direction(request):
         m2.reverse(100)
         m3.forward(100)
         m4.reverse(100)
-        time.sleep(sleepDuration)
-        stop()
+
+    elif movement =='stop':
+        stop();
 
     return HttpResponse('{}'.format(ultra()))
