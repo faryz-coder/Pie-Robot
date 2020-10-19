@@ -74,6 +74,7 @@ def direction(request):
         al.off()
         af.off()
         ar.off()
+        motorAll.stop()
 
     if movement == 'up' and ultrasonic > stopDistance:
         print("Robot Moving Forward ")
