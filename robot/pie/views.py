@@ -36,7 +36,7 @@ def direction(request):
 
     movement = request.POST['UP']
     stopDistance = 5
-    sleepDuration = 2
+    sleepDuration = 1.5
 
     def ultra():
         t = True
