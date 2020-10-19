@@ -113,4 +113,4 @@ def direction(request):
         time.sleep(sleepDuration)
         stop()
 
-    return HttpResponse('Return data to ajax call : movement {}'.format(ultra))
+    return HttpResponse('{}'.format(ultra()))
