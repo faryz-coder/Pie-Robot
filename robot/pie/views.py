@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from pie import PiMotor
 import RPi.GPIO as GPIO
 import time
+import socket
 
 GPIO.setwarnings(False)
 
@@ -30,7 +31,14 @@ ar = PiMotor.Arrow(4)
 
 
 def home(request):
-    return render(request, "home.html")
+
+    testIP = "8.8.8.8"
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect((testIP, 0))
+    ipaddr = s.getsockname()[0]
+    host = socket.gethostname()
+    # print ("IP:", ipaddr, " Host:")
+    return render(request, "home.html", {'name': ipaddr})
 
 def direction(request):
 
