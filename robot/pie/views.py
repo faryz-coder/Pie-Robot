@@ -67,13 +67,15 @@ def direction(request):
                 t = False
         return distance
 
+    ultrasonic = ultra()
+
     def stop():
         print("Robot Stop ")
         al.off()
         af.off()
         ar.off()
 
-    if movement == 'up' and ultra() > stopDistance:
+    if movement == 'up' and ultrasonic > stopDistance:
         print("Robot Moving Forward ")
         af.on()
         motorAll.forward(100)
