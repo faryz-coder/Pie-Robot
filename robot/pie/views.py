@@ -118,7 +118,6 @@ def direction(request):
         stop();
 
     return HttpResponse('{}'.format(ultra()))
-    return HttpResponse('this is view')
 
 def runCode(request):
     req = request.POST['inputCode']

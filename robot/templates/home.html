@@ -27,7 +27,7 @@
     <div class="col">
       <h2 id="object" class="border border-success bg-success text-white rounded text-center" style="padding:10px">Ultrasonic: __ Cm</h2>
       <div class="row border border-secondary bg-secondary text-white rounded" style="margin-left:1px; margin-right:1px;">
-        <h2 class="col" style="padding:10px"></h2>
+        <h2 id="userInput" class="col" style="padding:10px"></h2>
       </div>
     </div>
   </div>
@@ -93,6 +93,11 @@ function runScript(button) {
           //If you wish you can do additional data manipulation here.
           // wrapper.innerHTML = count + "bit" + data;\
           wrapper.innerHTML = "Ultrasonic: " + data;
+          if (data < 5) {
+            userInput.innerHTML ="Object Close";
+          } else {
+            userInput.innerHTML ="";
+          }
           count ++;
         }
 
@@ -114,6 +119,11 @@ function end() {
           //If you wish you can do additional data manipulation here.
           // wrapper.innerHTML = count + "bit" + data;\
           wrapper.innerHTML = "Ultrasonic: " + data;
+          if (data < 5) {
+            userInput.innerHTML ="Object Close";
+          } else {
+            userInput.innerHTML ="";
+          }
           count ++;
         }
 
@@ -130,7 +140,11 @@ function end() {
         },
         success: function(data) {
           //If you wish you can do additional data manipulation here.
-          userInput.innerHTML = "userInput: " + data;
+          if (data < 5) {
+            userInput.innerHTML ="Object Close";
+          } else {
+            userInput.innerHTML ="";
+          }
         }
     });
   }
