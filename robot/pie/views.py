@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 import time
 import socket
 
+# Enable this back
 GPIO.setwarnings(False)
 
 TRIG = 29
@@ -116,4 +117,41 @@ def direction(request):
     elif movement =='stop':
         stop();
 
+    return HttpResponse('{}'.format(ultra()))
+    return HttpResponse('this is view')
+
+def runCode(request):
+    req = request.POST['inputCode']
+    def ultra():
+        t = True
+        distance = 0
+        count=0
+        while t:
+         i=0
+         avgDistance=0
+         for i in range(5):
+            GPIO.output(TRIG, False)
+            time.sleep(0.1)
+
+            GPIO.output(TRIG, True)
+            time.sleep(0.00001)
+            GPIO.output(TRIG, False)
+            while GPIO.input(ECHO)==0:
+                pulse_start = time.time()
+
+            while GPIO.input(ECHO)==1:
+                pulse_end = time.time()
+                pulse_duration = pulse_end - pulse_start
+
+                distance = (pulse_duration * 34300)/2
+                distance = round(distance,2)
+                avgDistance=avgDistance+distance
+
+                avgDistance=avgDistance/5
+                distance = int(avgDistance)
+                t = False
+        return distance
+
+    ultrasonic = ultra()
+    exec(req)
     return HttpResponse('{}'.format(ultra()))

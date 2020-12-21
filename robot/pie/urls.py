@@ -6,5 +6,6 @@ from .import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('move', views.direction, name='move')
+    path('move', views.direction, name='move'),
+    path('inputCode', views.runCode, name='inputCode')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,14 +2,9 @@
 
 {% block content %}
 
-<div class="visual">
-  <!-- <img src="http://192.168.0.103:8081" alt= "http://127.0.0.1:8000/media/no-camera.jpg"> -->
-  <img src="http://{{name}}:8081" alt= "http://{{name}}:8000/media/no-camera.jpg">
-  <h2 id="object"style="position:absolute; bottom:8px; color:red"></h2>
-</div>
+<h1 class="text-center">Raspberry Pi ROBOT</h1>
 
-<h1>Raspberry Pi ROBOT</h1>
-<div class="container" style="display:flex;justify-content: center;">
+<!-- <div class="container" style="display:flex;justify-content: center;">
   <div class="vertical-center">
     <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="up" id="buttonUp" style="margin-left: 120px">UP HOLD</button>
     <p>
@@ -19,11 +14,68 @@
     <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="back" id="buttonUp" style="margin-left: 100px">BACK HOLD</button>
     <p id="counter"></p>
   </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <!-- <img src="http://192.168.0.103:8081" alt= "http://127.0.0.1:8000/media/no-camera.jpg"> -->
+        <img src="http://127.0.0.1:8000/media/no-camera.jpg" alt= "http://127.0.0.1:8000/media/no-camera.jpg">
+        <!-- <img src="http://{{name}}:8081" alt= "http://{{name}}:8000/media/no-camera.jpg"> -->
+        <h2 style="color:red"></h2>
+    </div>
+    <div class="col">
+      <h2 id="object" class="border border-success bg-success text-white rounded text-center" style="padding:10px">Ultrasonic: __ Cm</h2>
+      <div class="row border border-secondary bg-secondary text-white rounded" style="margin-left:1px; margin-right:1px;">
+        <h2 class="col" style="padding:10px"></h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 text-center">
+      <h2 class="border border-secondary bg-secondary text-white rounded" style="padding:10px">Easy Mode</h2>
+      <button class="btn btn-primary btn-lg btn-block"onmousedown="runScript(this)" onmouseup="end()" name="UP" value="up" id="buttonUp" style="margin-bottom: 5px">UP HOLD</button>
+      <div class="row">
+        <button class="col-6 btn btn-primary btn-lg" onmousedown="runScript(this)" onmouseup="end()" name="UP" value="right" id="buttonUp" style="margin-right: 2.5px">RIGHT HOLD</button>
+        <button class="col btn btn-primary btn-lg" onmousedown="runScript(this)" onmouseup="end()" name="UP" value="left" id="buttonUp">LEFT HOLD</button>
+      </div>
+      <button class="btn btn-primary btn-lg" onmousedown="runScript(this)" onmouseup="end()" name="UP" value="back" id="buttonUp" style="margin-top: 5px">BACK HOLD</button>
+    </div>
+
+    <div class="col">
+      <h2 class="border border-warning bg-warning text-white rounded" style="padding:10px">Complex Mode</h2>
+      <textarea id="codeInput" class="form-control" rows="8" style="font-size:20px"></textarea>
+      <button class="btn btn-primary btn-lg btn-block"style="width:100%; margin-top:5px" onclick="runCode()">RUN</button>
+    </div>
+  </div>
 </div>
 
+  <!-- <div  class="column">
+    <h2 style="width: 100px; padding: 20px; text-align:center; border:5px solid black">Easy Mode</h2>
+    <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="up" id="buttonUp" style="margin-left: 120px">UP HOLD</button>
+    <p>
+      <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="right" id="buttonUp">RIGHT HOLD</button>
+      <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="left" id="buttonUp">LEFT HOLD</button>
+    </p>
+    <button onmousedown="runScript(this)" onmouseup="end()" name="UP" value="back" id="buttonUp" style="margin-left: 100px">BACK HOLD</button>
+  </div>
 
+  <div class="column" style="/*border:5px solid pink;*/ width:28.5%">
+    <h2 style="width: 100px; padding: 20px; text-align:center; border:5px solid black">Complex Mode</h2>
+    <textarea id="codeInput" name="codeInput" rows="10" cols="70" style="padding: 10px">
+    </textarea>
+    <button style="width:100%" onclick="runCode()">RUN</button>
+  </div>
+  <div class="column">
+    <p id="userInput">userInput:</p>
+  </div>
+</div> -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+  var userInput = document.getElementById('userInput');
+  var codeInput = document.getElementById('codeInput')
   var wrapper = document.getElementById('object');
   var counter;
   var count = 0;
@@ -67,6 +119,22 @@ function end() {
 
     });
   }
+
+  function runCode() {
+    $.ajax({
+        url: 'inputCode', //The URL you defined in urls.py
+        type: "POST",
+        data: {
+          inputCode: codeInput.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(data) {
+          //If you wish you can do additional data manipulation here.
+          userInput.innerHTML = "userInput: " + data;
+        }
+    });
+  }
+
 </script>
 
 
